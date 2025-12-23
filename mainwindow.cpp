@@ -14,8 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(6);
 
-    for (int row = 0; row < 2; ++row) {
-        for (int col = 0; col < 3; ++col) {
+    for (int row = 0; row < 9; ++row) {
+        for (int col = 0; col < 9; ++col) {
             QString label = QString("Row %1, Col %2").arg(row).arg(col);
             QPushButton *button = new QPushButton(label);
 
