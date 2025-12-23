@@ -1,31 +1,22 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "QGridLayout.h"
-#include "QPushButton.h"
+//#include "QGridLayout.h"
+//#include "QPushButton.h"
+#include "grid_layout.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    QWidget *window = new QWidget(this);
-    QGridLayout *layout = new QGridLayout(window);
-    this->setLayout(layout);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->setSpacing(6);
+    GridLayout *gridWidget = new GridLayout(this);
+    gridWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    for (int row = 0; row < 9; ++row) {
-        for (int col = 0; col < 9; ++col) {
-            QString label = QString("Row %1, Col %2").arg(row).arg(col);
-            QPushButton *button = new QPushButton(label);
+    QWidget *central = new QWidget;
+    central->setLayout(new QVBoxLayout);
+    central->layout()->addWidget(gridWidget);
+    setCentralWidget(central);
 
-            // addWidget(widget, row, column, rowSpan, columnSpan)
-            button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-            layout->addWidget(button, row, col);
-        }
-    }
-
-    setCentralWidget(window);
+    resize(600, 600);
 }
 
 MainWindow::~MainWindow()

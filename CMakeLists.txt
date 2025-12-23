@@ -26,6 +26,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Minesweeper
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        grid_layout.h
+        grid_layout.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Minesweeper APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
