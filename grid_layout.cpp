@@ -11,10 +11,10 @@ GridLayout::GridLayout(QWidget *parent) : QWidget(parent)
     m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->setSpacing(6);
 
-    for (int row = 0; row < 9; ++row) {
+    for (int row = 0; row < rows; ++row) {
         cells.push_back({});
 
-        for (int col = 0; col < 9; ++col) {
+        for (int col = 0; col < cols; ++col) {
             Cell cell{row, col, 0, new QPushButton(QString(""), this), normal, false};
             cell.button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
             m_layout->addWidget(cell.button, row, col);
@@ -35,8 +35,8 @@ void GridLayout::PlaceBombs() {
     int placed = 0;
 
     while (placed < 10) {
-        int row = QRandomGenerator::global()->bounded(9);
-        int col = QRandomGenerator::global()->bounded(9);
+        int row = QRandomGenerator::global()->bounded(rows);
+        int col = QRandomGenerator::global()->bounded(cols);
         auto &cell = cells[row][col];
 
         if (cell.state != bomb) {
@@ -47,9 +47,9 @@ void GridLayout::PlaceBombs() {
 }
 
 void GridLayout::PutAdjacentCounts() {
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < rows; i++)
     {
-        for (int j = 0; j < 9; j++)
+        for (int j = 0; j < cols; j++)
         {
             if (cells[i][j].state == bomb)
             {
@@ -63,7 +63,7 @@ void GridLayout::PutAdjacentCounts() {
                 int new_row = i + direction[0];
                 int new_col = j + direction[1];
 
-                if (new_row < 0 || new_col < 0 || new_row >= 9 || new_col >= 9)
+                if (new_row < 0 || new_col < 0 || new_row >= rows || new_col >= cols)
                 {
                     continue;
                 }
@@ -82,8 +82,8 @@ void GridLayout::PutAdjacentCounts() {
 }
 
 GridLayout::Cell& GridLayout::GetButtonStruct(QPushButton *btn) {
-    for (int row = 0; row < 9; row++) {
-        for (int col = 0; col < 9; col++) {
+    for (int row = 0; row < rows; row++) {
+        for (int col = 0; col < cols; col++) {
             if (cells[row][col].button != btn) { continue; }
 
             return cells[row][col];
@@ -136,7 +136,7 @@ void GridLayout::RevealAdjacentCells(int start_row, int start_col)
             int nr = r + dir[0];
             int nc = c + dir[1];
 
-            if (nr < 0 || nr >= 9 || nc < 0 || nc >= 9) { continue; }
+            if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) { continue; }
 
             auto &neighbor = cells[nr][nc];
 
@@ -153,9 +153,9 @@ void GridLayout::RevealAdjacentCells(int start_row, int start_col)
 }
 
 bool GridLayout::CheckWinCondition() const {
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < rows; i++)
     {
-        for (int j = 0; j < 9; j++)
+        for (int j = 0; j < cols; j++)
         {
             if (cells[i][j].state != bomb && !cells[i][j].revealed)
             {

@@ -18,6 +18,8 @@ private:
         0 = normal grid spot
         1 = bomb
     */
+    const int rows = 9;
+    const int cols = 9;
     enum states {normal = 0, bomb = 1};
     struct Cell {
         int row;
