@@ -34,7 +34,7 @@ GridLayout::~GridLayout() = default;
 void GridLayout::PlaceBombs() {
     int placed = 0;
 
-    while (placed < 5) {
+    while (placed < 10) {
         int row = QRandomGenerator::global()->bounded(9);
         int col = QRandomGenerator::global()->bounded(9);
         auto &cell = cells[row][col];
